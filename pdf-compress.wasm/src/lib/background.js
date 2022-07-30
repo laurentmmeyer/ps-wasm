@@ -58,7 +58,7 @@ function loadScript(url, onLoadCallback) {
 //     ["blocking"]
 // );
 
-var Module;
+let Module;
 
 export function _GSPS2PDF(dataStruct, responseCallback, progressCallback, statusUpdateCallback) {
     // first download the ps data
@@ -71,9 +71,11 @@ export function _GSPS2PDF(dataStruct, responseCallback, progressCallback, status
         //set up EMScripten environment
         Module = {
             preRun: [function () {
+                const FS = window.FS;
                 var data = FS.writeFile('input.pdf', new Uint8Array(xhr.response));
             }],
             postRun: [function () {
+                const FS = window.FS;
                 var uarray = FS.readFile('output.pdf', {encoding: 'binary'}); //Uint8Array
                 var blob = new Blob([uarray], {type: "application/octet-stream"});
                 var pdfDataURL = window.URL.createObjectURL(blob);
@@ -108,6 +110,7 @@ export function _GSPS2PDF(dataStruct, responseCallback, progressCallback, status
             totalDependencies: 0
         };
         Module.setStatus('Loading Postscript Converter...');
+        window.Module = Module;
         loadScript('gs.js', null);
     };
     xhr.send();

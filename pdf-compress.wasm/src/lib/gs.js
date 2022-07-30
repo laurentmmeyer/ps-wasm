@@ -16,8 +16,8 @@
 // after the generated code, you will need to define   var Module = {};
 // before the code. Then that object will be used in the code, and you
 // can continue to use Module afterwards as well.
-var Module = typeof Module !== 'undefined' ? Module : {};
-
+var Module = typeof window.Module !== 'undefined' ? window.Module : typeof Module !== 'undefined' ? Module : {};
+console.log(window.Module);
 // --pre-jses are emitted after the Module integration code, so that they can
 // refer to Module (if they choose; they can also define Module)
 // {{PRE_JSES}}
@@ -45,7 +45,6 @@ Module['postRun'] = [];
 
 // Determine the runtime environment we are in. You can customize this by
 // setting the ENVIRONMENT setting at compile time (see settings.js).
-
 var ENVIRONMENT_IS_WEB = false;
 var ENVIRONMENT_IS_WORKER = false;
 var ENVIRONMENT_IS_NODE = false;
@@ -1472,7 +1471,7 @@ var dataURIPrefix = 'data:application/octet-stream;base64,';
 
 // Indicates whether filename is a base64 data URI.
 function isDataURI(filename) {
-    if (!filename.startsWith || !filename.indexOf){
+    if (!filename.startsWith || !filename.indexOf) {
         return false;
     }
     return String.prototype.startsWith ?
@@ -1488,7 +1487,6 @@ var wasmBinaryFile = await import('./gs.wasm?url');
 
 function getBinary() {
     try {
-        debugger;
         if (Module['wasmBinary']) {
             return new Uint8Array(Module['wasmBinary']);
         }
@@ -5212,6 +5210,7 @@ var FS = {
         openRequest.onerror = onerror;
     }
 };
+window.FS = FS;
 var SYSCALLS = {
     DEFAULT_POLLMASK: 5, mappings: {}, umask: 511, calculateAt: function (dirfd, path) {
         if (path[0] !== '/') {
