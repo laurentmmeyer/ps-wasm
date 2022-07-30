@@ -9,11 +9,11 @@ function pullData(data_url, progressCallback, readyCallback) {
         	var psData = new Uint8Array(xhr.response);
         	var headerView = new DataView(xhr.response, 0, 4);
         	var header = headerView.getUint32(0);
-        	if (header != 0x25215053) // '%!PS', big endian
-        	{
-        		// some servers don't have gzip support turned on, which means we have to manually inflate
-        		psData = pako.ungzip(psData);
-        	}
+        	// if (header != 0x25215053) // '%!PS', big endian
+        	// {
+        	// 	// some servers don't have gzip support turned on, which means we have to manually inflate
+        	// 	psData = pako.ungzip(psData);
+        	// }
           var blob = new Blob([psData], {type: "application/octet-stream"});
           var psDataURL = window.URL.createObjectURL(blob);
           readyCallback({psDataURL: psDataURL, url: data_url});

@@ -1,11 +1,11 @@
 {
 "update_url": "https://clients2.google.com/service/update2/crx",
 
-	"name": "PostScript Viewer",
-	"short_name": "ps-wasm",
+	"name": "PDF Compressor",
+	"short_name": "pdf-compress-wasm",
 	"version": "0.21",
 	"icons": { "128": "logo.png" },
-	"description": "Rendering PostScript using GhostScript in WebAssembly.",
+	"description": "Compress PDF using GhostScript in WebAssembly.",
 	"manifest_version": 2,
 	"background": {
 		"scripts": [
